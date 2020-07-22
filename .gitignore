@@ -1,0 +1,10 @@
+*.log
+.DS_Store
+node_modules
+dist
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+#*.ipr
