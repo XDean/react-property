@@ -1,8 +1,21 @@
 {
+  "name": "react-property",
+  "description": "Another React State Management Solution",
   "version": "0.1.0",
+  "author": "Dean Xu",
   "license": "MIT",
+  "keywords": [
+    "react"
+  ],
+  "homepage": "https://github.com/XDean/react-property",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/XDean/react-property"
+  },
+  "bugs": "https://github.com/XDean/react-property/issues",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
+  "module": "dist/react-property.esm.js",
   "files": [
     "dist",
     "src"
@@ -17,7 +30,9 @@
     "lint": "tsdx lint",
     "prepare": "tsdx build"
   },
-  "peerDependencies": {},
+  "peerDependencies": {
+    "react": "^16.13.1"
+  },
   "husky": {
     "hooks": {
       "pre-commit": "tsdx lint"
@@ -29,10 +44,8 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "name": "react-property",
-  "author": "Dean Xu",
-  "module": "dist/react-property.esm.js",
   "devDependencies": {
+    "@types/react": "^16.9.43",
     "husky": "^4.2.5",
     "tsdx": "^0.13.2",
     "tslib": "^2.0.0",
