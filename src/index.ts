@@ -1,23 +1,41 @@
-export interface Property<T> {
-    get(): T
+export interface Readable<T> {
+  get(): T;
+}
 
-    set(t: T): void
+export interface Writable<T> extends Readable<T> {
+  set(t: T): void;
 
-    update(u: (t: T) => T): void
+  update(u: (t: T) => T): void;
+}
 
-    listen(l: Listener<T>): Disposable
+export interface Listenable<T> {
+  listen(l: Listener<T>): Disposable;
+}
 
-    intercept(i: Interceptor<T>): Disposable
+export interface Interceptable<T> {
+  intercept(i: Interceptor<T>): Disposable;
+}
+
+export interface Property<T> extends Listenable<T>, Interceptable<T> {
+  readonly bean: any;
+  readonly name: string;
+}
+
+export interface Binding<T> extends Listenable<T> {
+  readonly valid: boolean;
+  readonly dependencies: Listenable<any>[];
+
+  invalidate(): void;
 }
 
 export interface Listener<T> {
-    onChange(prop: Property<T>, oldVal: T, newVal: T): void
+  onChange(prop: Listenable<T>, oldVal: T, newVal: T): void;
 }
 
 export interface Interceptor<T> {
-    willChange(prop: Property<T>, oldVal: T, newVal: T): [T, boolean] // value, accept
+  willChange(prop: Interceptable<T>, oldVal: T, newVal: T): [T, boolean]; // value, accept
 }
 
 export interface Disposable {
-    dispose(): void
+  dispose(): void;
 }
