@@ -1,4 +1,4 @@
-import { Dependencies, Listenable } from 'index';
+import { Dependencies, Listenable } from 'api.ts';
 
 export class RPGlobal {
   private uid = 0;

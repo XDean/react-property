@@ -1,4 +1,4 @@
-import { Binding, Dependencies, Disposable, Listener } from 'index';
+import { Binding, Dependencies, Disposable, Listener } from 'api.ts';
 import { ListenableHelper } from 'core/listenable';
 import { Global } from 'core/internal';
 import { disposables, disposed } from 'core/disposable';

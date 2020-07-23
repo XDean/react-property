@@ -1,4 +1,4 @@
-import { Readable } from 'index';
+import { Readable } from 'api.ts';
 
 export interface Event<T> {
   name: string;

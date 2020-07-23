@@ -1,6 +1,6 @@
 import { Global } from './internal';
 import { InterceptableHelper } from 'core/interceptable';
-import { Disposable, Interceptor, Listener, Property } from 'index';
+import { Disposable, Interceptor, Listener, Property } from 'api.ts';
 import { ListenableHelper } from 'core/listenable';
 
 export class PropertyImpl<T> implements Property<T> {

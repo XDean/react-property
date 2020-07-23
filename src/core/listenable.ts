@@ -1,4 +1,4 @@
-import { Disposable, Listenable, Listener } from 'index';
+import { Disposable, Listenable, Listener } from 'api.ts';
 import { arrayRemove } from 'core/util';
 import { disposable } from 'core/disposable';
 

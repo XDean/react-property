@@ -1,4 +1,4 @@
-import { Disposable } from 'index';
+import { Disposable } from 'api.ts';
 
 export function disposed(): Disposable {
   return {

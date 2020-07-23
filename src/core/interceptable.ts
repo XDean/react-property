@@ -1,4 +1,4 @@
-import { Disposable, Interceptable, Interceptor } from 'index';
+import { Disposable, Interceptable, Interceptor } from 'api.ts';
 import { arrayRemove } from 'core/util';
 import { disposable } from 'core/disposable';
 
