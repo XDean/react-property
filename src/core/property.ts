@@ -1,5 +1,5 @@
-import { GLOBAL_INST } from './global';
-import { InterceptableHelper } from 'core/interceptor';
+import { Global } from './internal';
+import { InterceptableHelper } from 'core/interceptable';
 import { Disposable, Interceptor, Listener, Property } from 'index';
 import { ListenableHelper } from 'core/listenable';
 
@@ -13,10 +13,11 @@ export class PropertyImpl<T> implements Property<T> {
   constructor(defaultVal: T, bean?: any, name?: string) {
     this.value = defaultVal;
     this.bean = bean;
-    this.name = name || 'Property@' + GLOBAL_INST.nextId;
+    this.name = name || 'Property@' + Global.nextId;
   }
 
   get(): T {
+    Global.fireRead(this);
     return this.value;
   }
 

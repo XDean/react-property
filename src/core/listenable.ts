@@ -1,21 +1,22 @@
-import { Disposable, Listener, Listenable } from 'index';
+import { Disposable, Listenable, Listener } from 'index';
 import { arrayRemove } from 'core/util';
+import { disposable } from 'core/disposable';
 
 export class ListenableHelper<T> implements Listenable<T> {
   listeners: Listener<T>[] = [];
 
   listen(l: Listener<T>): Disposable {
     this.listeners.push(l);
-    return {
-      dispose: () => {
-        arrayRemove(this.listeners, l);
-      },
-    };
+    return disposable(() => arrayRemove(this.listeners, l));
   }
 
-  callListeners(o: Listenable<T>, oldVal: T, newVal: T) {
+  hasListener(): boolean {
+    return this.listeners.length > 0;
+  }
+
+  callListeners(o: Listenable<T>, oldVal: T | undefined, newVal: T) {
     this.listeners.slice().forEach(listener => {
-      listener.onChange(o, oldVal, newVal);
+      listener(o, oldVal, newVal);
     });
   }
 }
