@@ -1,43 +1,56 @@
-import { Global } from './internal';
-import { InterceptableHelper } from 'core/interceptable';
-import { Disposable, Interceptor, Listener, Property } from 'api.ts';
-import { ListenableHelper } from 'core/listenable';
+import {Global} from './internal';
+import {
+    Listener,
+    Disposable,
+    ObservableValueHelper,
+    ObservableValue
+} from 'api';
+import {ListenableHelper} from 'core/listenable';
 
-export class PropertyImpl<T> implements Property<T> {
-  bean: any;
-  name: string;
-  value: T;
-  listenHelper = new ListenableHelper<T>();
-  interceptHelper = new InterceptableHelper<T>();
+export interface Property<T> extends ObservableValue<T> {
+    readonly bean: any;
+    readonly name: string;
 
-  constructor(defaultVal: T, bean?: any, name?: string) {
-    this.value = defaultVal;
-    this.bean = bean;
-    this.name = name || 'Property@' + Global.nextId;
-  }
+    set(t: T | ((t: T) => T)): void;
+}
 
-  get(): T {
-    Global.fireRead(this);
-    return this.value;
-  }
+export namespace Property {
+    export function create<T>(defaultValue: T) {
+        return new PropertyImpl<T>(defaultValue);
+    }
+}
 
-  set(t: T): void {
-    let oldVal = this.value;
-    this.value = t;
-    this.listenHelper.callListeners(this, oldVal, this.value);
-  }
+class PropertyImpl<T> extends ObservableValueHelper<T> implements Property<T> {
+    listenHelper = new ListenableHelper<T>();
+    private value: T;
 
-  update(u: (t: T) => T): void {
-    let oldVal = this.value;
-    this.value = u(oldVal);
-    this.listenHelper.callListeners(this, oldVal, this.value);
-  }
+    constructor(defaultValue: T) {
+        super();
+        this.value = defaultValue;
+    }
 
-  intercept(i: Interceptor<T>): Disposable {
-    return this.interceptHelper.intercept(i);
-  }
+    get(): T {
+        Global.fireRead(this);
+        return this.value;
+    }
 
-  listen(l: Listener<T>): Disposable {
-    return this.listenHelper.listen(l);
-  }
+    set(t: T | ((t: T) => T)): void {
+        let oldVal = this.value;
+        if (typeof t === "function") {
+            this.value = (t as ((t: T) => T))(this.value);
+        } else {
+            this.value = t as T;
+        }
+        this.listenHelper.callListeners(this, oldVal, this.value);
+    }
+
+    update(u: (t: T) => T): void {
+        let oldVal = this.value;
+        this.value = u(oldVal);
+        this.listenHelper.callListeners(this, oldVal, this.value);
+    }
+
+    listen(l: Listener<T>): Disposable {
+        return this.listenHelper.listen(l);
+    }
 }
