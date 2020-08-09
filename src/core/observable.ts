@@ -1,4 +1,4 @@
-import {Listenable, Listener, ListenableHelper, Disposable} from "api";
+import {Listenable, Listener, ListenableHelper, Disposable, Binding} from '../api';
 import {Global} from "./internal";
 
 export interface ObservableValue<T> extends Listenable<T> {
@@ -21,8 +21,8 @@ export abstract class ObservableValueHelper<T> implements ObservableValue<T> {
 
     abstract get(): T;
 
-    map<E>(_f: (t: T) => E): ObservableValue<E> {
-        return null!;
+    map<E>(f: (t: T) => E): ObservableValue<E> {
+        return Binding.create(() => f(this.get()))!;
     }
 
     listen(l: Listener<T>): Disposable {

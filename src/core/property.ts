@@ -3,9 +3,9 @@ import {
     Listener,
     Disposable,
     ObservableValueHelper,
-    ObservableValue
-} from 'api';
-import {ListenableHelper} from 'core/listenable';
+    ObservableValue,
+    ListenableHelper
+} from '../api';
 
 export interface Property<T> extends ObservableValue<T> {
     readonly bean: any;

@@ -1,4 +1,4 @@
-import {Binding, Property} from "api";
+import {Binding, Property} from '../api';
 import {Dispatch, SetStateAction, useEffect, useState} from "react";
 
 export function useProperty<T>(prop: Property<T>): [T, Dispatch<SetStateAction<T>>] {

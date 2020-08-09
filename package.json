@@ -45,10 +45,35 @@
     "trailingComma": "es5"
   },
   "devDependencies": {
+    "@babel/preset-typescript": "^7.10.4",
     "@types/react": "^16.9.43",
     "husky": "^4.2.5",
     "tsdx": "^0.13.2",
     "tslib": "^2.0.0",
     "typescript": "^3.9.7"
+  },
+
+  "jest": {
+    "globals": {
+      "__DEV__": true
+    },
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest",
+      "^.+\\.jsx?$": "babel-jest"
+    },
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/\\./"
+    ],
+    "watchPathIgnorePatterns": [
+      "<rootDir>/node_modules/"
+    ]
   }
 }

@@ -4,8 +4,8 @@ import {
     Listener,
     ObservableValue,
     ObservableValueHelper
-} from 'api';
-import {Global} from "core/internal";
+} from '../api';
+import {Global} from "./internal";
 
 export type Dependencies = ObservableValue<any>[];
 
@@ -16,7 +16,13 @@ export interface Binding<T> extends ObservableValue<T> {
     invalidate(): void;
 }
 
-export class BindingImpl<T> extends ObservableValueHelper<T> implements Binding<T> {
+export namespace Binding {
+    export function create<T>(calc: () => T) {
+        return new BindingImpl(calc);
+    }
+}
+
+class BindingImpl<T> extends ObservableValueHelper<T> implements Binding<T> {
     private _valid: boolean | 'calculating' = false;
     private _value?: T;
     private _dependencies: Dependencies = [];

@@ -1,4 +1,4 @@
-import {Dependencies, ObservableValue} from 'api';
+import {Dependencies, ObservableValue} from '../../api';
 
 export class RPGlobal {
     private uid = 0;

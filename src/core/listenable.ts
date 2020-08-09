@@ -1,5 +1,5 @@
 import {arrayRemove} from './util';
-import {Listener, Disposable} from 'api'
+import {Listener, Disposable} from '../api'
 
 export interface Listenable<T> {
     listen(l: Listener<T>): Disposable;
