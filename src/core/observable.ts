@@ -1,5 +1,11 @@
-import {Binding, Disposable, Listenable, ListenableHelper, Listener,} from '../api';
-import {Global} from './internal';
+import {
+  Binding,
+  Disposable,
+  Listenable,
+  ListenableHelper,
+  Listener,
+} from '../api';
+import { Global } from './internal';
 
 export interface ObservableValue<T> extends Listenable<T> {
   bean: any;
