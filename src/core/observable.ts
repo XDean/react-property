@@ -1,31 +1,31 @@
-import {Listenable, Listener, ListenableHelper, Disposable, Binding} from '../api';
-import {Global} from "./internal";
+import {Binding, Disposable, Listenable, ListenableHelper, Listener,} from '../api';
+import {Global} from './internal';
 
 export interface ObservableValue<T> extends Listenable<T> {
-    bean: any
-    name: string
+  bean: any;
+  name: string;
 
-    get(): T;
+  get(): T;
 
-    map<E>(f: (t: T) => E): ObservableValue<E>
+  map<E>(f: (t: T) => E): ObservableValue<E>;
 }
 
 export abstract class ObservableValueHelper<T> implements ObservableValue<T> {
-    bean: any;
-    name: string;
-    protected listenHelper = new ListenableHelper<T>();
+  bean: any;
+  name: string;
+  protected listenHelper = new ListenableHelper<T>();
 
-    protected constructor() {
-        this.name = name || '@' + Global.nextId;
-    }
+  protected constructor() {
+    this.name = '@' + Global.nextId;
+  }
 
-    abstract get(): T;
+  abstract get(): T;
 
-    map<E>(f: (t: T) => E): ObservableValue<E> {
-        return Binding.create(() => f(this.get()))!;
-    }
+  map<E>(f: (t: T) => E): ObservableValue<E> {
+    return Binding.create(() => f(this.get()))!;
+  }
 
-    listen(l: Listener<T>): Disposable {
-        return this.listenHelper.listen(l);
-    }
+  listen(l: Listener<T>): Disposable {
+    return this.listenHelper.listen(l);
+  }
 }
